@@ -3,6 +3,7 @@ using Application.AutoMapper;
 using DAL.SqlServer;// Contains AddSqlServerServices extension and UnitOfWork
 using MediatR;
 using RestaurantManagement.Middlewares;
+using RestaurantManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,15 +15,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddApplicationServices();
 builder.Services.AddMediatR(typeof(Application.CQRS.Users.Handlers.Register.Handler).Assembly);
+builder.Services.AddAuthenticationService(builder.Configuration);
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 var conn = builder.Configuration.GetConnectionString("myconn");
 builder.Services.AddSqlServerServices(conn);
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
-
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -35,9 +36,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
-app.UseMiddleware<RateLimitMiddleware>(2 , TimeSpan.FromMinutes(1));
+//app.UseMiddleware<RateLimitMiddleware>(2 , TimeSpan.FromMinutes(1));
 
 app.MapControllers();
 
 app.Run();
-

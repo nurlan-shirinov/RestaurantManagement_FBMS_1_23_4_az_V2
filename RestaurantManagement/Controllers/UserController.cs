@@ -42,4 +42,10 @@ public class UserController(ISender sender) : ControllerBase
         return Ok(await _sender.Send(request));
     }
 
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] Application.CQRS.Users.Handlers.Login.LoginRequest request)
+    {
+        return Ok(await _sender.Send(request));
+    }
+
 }
