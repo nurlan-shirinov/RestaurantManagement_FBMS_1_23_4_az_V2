@@ -1,4 +1,5 @@
 ﻿using Domain.BaseEntites;
+using Domain.Enum;
 
 namespace Domain.Entites;
 
@@ -9,4 +10,5 @@ public class User:BaseEntity
     public string Email { get; set; }
     public string Phone { get; set; }
     public string PasswordHash { get; set; }
+    public UserRoles UserRole { get; set; }
 }
