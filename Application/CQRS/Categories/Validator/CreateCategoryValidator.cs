@@ -9,7 +9,6 @@ public class CreateCategoryValidator : AbstractValidator<CreateCategoryRequest>
     {
         RuleFor(c => c.Name)
             .NotEmpty()
-            .MaximumLength(5)
-            .EmailAddress();
+            .MaximumLength(50);
     }
 }

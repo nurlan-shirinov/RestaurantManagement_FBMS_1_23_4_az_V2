@@ -1,8 +1,10 @@
 using Application;
 using Application.AutoMapper;
-using DAL.SqlServer;// Contains AddSqlServerServices extension and UnitOfWork
+using Application.Security;
+using DAL.SqlServer;
 using MediatR;
 using Microsoft.OpenApi.Models;
+using RestaurantManagement.Infrastructure;
 using RestaurantManagement.Middlewares;
 using RestaurantManagement.Services;
 
@@ -40,6 +42,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IUserContext, HttpUserContext>();
 builder.Services.AddApplicationServices();
 builder.Services.AddMediatR(typeof(Application.CQRS.Users.Handlers.Register.Handler).Assembly);
 builder.Services.AddAuthenticationService(builder.Configuration);
