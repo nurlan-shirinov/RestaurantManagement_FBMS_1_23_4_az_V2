@@ -8,7 +8,6 @@ using Domain.Entites;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Repository.Common;
-using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
